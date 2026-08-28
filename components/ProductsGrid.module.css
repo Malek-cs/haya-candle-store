@@ -1,0 +1,318 @@
+/* ── Container & Layout ────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 120px; /* مساحة عشان الـ Cart Bar ما يغطي المنتجات */
+}
+
+/* ── Filter Tabs (الفلترة السلسة) ──────────────── */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 1rem 2.5rem;
+  padding: 10px;
+  position: relative;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 12px 24px;
+  color: #6B5E4C;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.tabActive {
+  color: #FFF8EC;
+  font-weight: bold;
+}
+
+.activeBg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #A3823F, #8c6e34);
+  border-radius: 50px;
+  z-index: 1;
+  box-shadow: 0 4px 15px rgba(169, 119, 47, 0.25);
+}
+
+/* ── Grid (الجوال: صورتين جنب بعض) ────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* عمودين في الجوال */
+  gap: 12px;
+  padding: 12px;
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+  }
+}
+
+/* ── Card (3D + Candle Pulse Glow) ────────────── */
+.card {
+  --tilt-rx: 0deg;
+  --tilt-ry: 0deg;
+  --tilt-lift: 0px;
+  --tilt-mx: 50%;
+  --tilt-my: 50%;
+  --tilt-sheen: 0;
+  background: #FFFFFF;
+  border: 1px solid rgba(50, 42, 32, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.15s ease-out, box-shadow 0.4s ease, border-color 0.3s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transform: perspective(900px) rotateX(var(--tilt-rx)) rotateY(var(--tilt-ry)) translateY(var(--tilt-lift));
+  position: relative;
+  box-shadow: 0 2px 10px rgba(50, 42, 32, 0.06);
+}
+
+/* تأثير توهج خفيف عند الهوفر */
+@keyframes candlePulse {
+  0% { box-shadow: 0 4px 16px rgba(169, 119, 47, 0.12); }
+  50% { box-shadow: 0 8px 26px rgba(169, 119, 47, 0.22); }
+  100% { box-shadow: 0 4px 16px rgba(169, 119, 47, 0.12); }
+}
+
+.card:hover:not(.unavailable) {
+  --tilt-lift: -8px;
+  border-color: #A3823F;
+  animation: candlePulse 2s infinite ease-in-out;
+}
+
+/* لمعة ضوء تتبع الماوس فوق الكرت (تتفعل عبر JS بتحديث الـ custom properties) */
+.sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--tilt-mx) var(--tilt-my), rgba(169, 119, 47, 0.12) 0%, transparent 55%);
+  opacity: var(--tilt-sheen);
+  transition: opacity 0.25s ease;
+}
+
+.unavailable { opacity: 0.55; filter: grayscale(0.8); }
+
+/* ── Image Wrapper ──────────────────────────── */
+.imgWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.1;
+  background: #F3ECDD;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.card:hover .img { transform: scale(1.08); }
+
+.soldOut {
+  position: absolute;
+  inset: 0;
+  background: rgba(50, 42, 32, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F4EFE4;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+/* ── Info Section ────────────────────────────── */
+.info {
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* دفع الفوتر لأسفل */
+}
+
+.name { font-size: 0.98rem; font-weight: 700; color: #322A20; margin-bottom: 0.3rem; font-family: 'Amiri', serif; }
+
+.desc {
+  font-size: 0.78rem;
+  color: #8A7C68;
+  line-height: 1.4;
+  margin-bottom: 0.8rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Scent Selector ──────────────────────────── */
+.scentSection { margin-top: auto; margin-bottom: 10px; }
+.scentLabel { font-size: 0.7rem; color: #A3823F; margin-bottom: 6px; }
+.scentLabelError { color: #C0392B; }
+
+.scentGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.scentBtn {
+  background: #F4EFE4;
+  border: 1px solid rgba(169, 119, 47, 0.25);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  color: #5C4E38;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.scentActive {
+  background: #A3823F !important;
+  border-color: #A3823F !important;
+  color: #fff !important;
+}
+
+.scentError {
+  border-color: rgba(192, 57, 43, 0.4);
+}
+
+/* ── Card Footer (Price & Add) ────────────────── */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; 
+  padding-top: 15px;
+  border-top: 1px solid rgba(50, 42, 32, 0.08);
+}
+
+/* تنسيق السعر */
+.price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #A3823F;
+}
+
+/* تنسيق زر الإضافة للسلة */
+.addBtn {
+  background: linear-gradient(135deg, #A3823F 0%, #8c6e34 100%);
+  color: #FFF8EC;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 25px; /* شكل كبسولة (Pill) ناعم */
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(169, 119, 47, 0.2);
+  font-family: inherit;
+}
+
+.addBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(169, 119, 47, 0.32);
+}
+
+.addBtn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.addBtn:disabled {
+  background: #E2DACB;
+  color: #A79C87;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.addedFlash {
+  background: linear-gradient(135deg, #2E9E52 0%, #1E7E34 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.35) !important;
+}
+
+/* ── Cart Bar Container (الخصم الذكي) ─────────── */
+.cartBarContainer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 500px;
+  background: rgba(255, 252, 245, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(169, 119, 47, 0.25);
+  border-radius: 20px;
+  padding: 12px 18px;
+  z-index: 1000;
+  box-shadow: 0 -10px 30px rgba(50, 42, 32, 0.15);
+}
+
+.discountProgressWrapper { margin-bottom: 10px; }
+.progressText { font-size: 0.8rem; text-align: center; margin-bottom: 6px; color: #5C4E38; }
+.bold { font-weight: bold; color: #322A20; }
+.successText { color: #1E7E34; font-weight: bold; }
+
+.progressBarBg {
+  width: 100%;
+  height: 6px;
+  background: rgba(50, 42, 32, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #A3823F, #D9AE64);
+  box-shadow: 0 0 10px rgba(169, 119, 47, 0.4);
+}
+
+.cartBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cartTotal { color: #322A20; font-weight: bold; }
+.cartCount { color: #6B5E4C; }
+.oldPrice { text-decoration: line-through; opacity: 0.5; font-size: 0.8rem; margin-right: 5px; }
+
+.cartBtn {
+  background: #A3823F;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.85rem;
+  transition: 0.2s;
+}
+
+.cartBtn:hover { background: #8c6e34; transform: scale(1.05); }
+
+/* ── Mobile Adjustments ──────────────────────── */
+@media (max-width: 480px) {
+  .name { font-size: 0.85rem; }
+  .price { font-size: 0.85rem; }
+  .addBtn { padding: 5px 8px; font-size: 0.7rem; }
+  .cartBarContainer { width: 95%; padding: 10px; }
+}

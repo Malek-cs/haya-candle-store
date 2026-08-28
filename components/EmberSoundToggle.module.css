@@ -1,0 +1,27 @@
+.toggle {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 20;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(15, 10, 5, 0.5);
+  border: 1px solid rgba(245, 217, 138, 0.3);
+  color: #f5d98a;
+  font-size: 1.1rem;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+.toggle:hover {
+  border-color: #d4af37;
+  transform: scale(1.08);
+}
+
+.toggle.on {
+  background: rgba(200, 134, 30, 0.25);
+  border-color: #d4af37;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.4);
+}

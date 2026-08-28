@@ -1,0 +1,74 @@
+:root {
+  /* الخلفية الورقية الفاتحة (الأقسام الفاتحة) */
+  --bg-color: #F4EFE4;
+
+  /* خلفية ثانوية أفتح قليلاً للبطاقات */
+  --bg-alt: #EAE2D2;
+
+  /* لون البطاقات */
+  --card-bg: #FFFFFF;
+
+  /* الأخضر الغامق الفاخر (الأقسام الداكنة، الهيدر) */
+  --forest: #212D20;
+  --forest-2: #283426;
+
+  /* الذهبي/التان الدافئ (اللمسة الفاخرة) */
+  --tan: #C7A667;
+  --tan-dark: #A3823F;
+
+  /* لون النص الأساسي على الخلفيات الفاتحة */
+  --text-color: #211D16;
+  --text-muted: #6E6656;
+
+  /* لون النص على الخلفيات الداكنة */
+  --text-on-dark: #F4EFE4;
+  --text-on-dark-muted: rgba(244, 239, 228, 0.72);
+
+  --border-soft: rgba(33, 29, 22, 0.12);
+  --border-on-dark: rgba(244, 239, 228, 0.18);
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-cairo), sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* العناوين بالفونت الفخم (Amiri) */
+h1, h2, h3, .luxury-text {
+  font-family: var(--font-amiri), serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* أزرار عامة (تُستخدم فقط خارج الأزرار المخصصة بالصفحة) */
+button, .btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  background: var(--tan-dark);
+  color: #FFF8EC;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+button:hover, .btn:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}

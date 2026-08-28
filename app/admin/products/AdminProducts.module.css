@@ -1,0 +1,44 @@
+/* تنسيق زر الكاميرا الصغير */
+.uploadSmallBtn {
+  background: #c9a84c;
+  color: #1a1208;
+  border: none;
+  padding: 0 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploadSmallBtn:hover {
+  background: #f5d98a;
+  transform: scale(1.05);
+}
+
+/* تنسيق غلاف مدخل الصورة */
+.imageInputWrapper {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+/* تنسيق أزرار النكهات */
+.scentBtn {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid #3a2e22;
+  background: #1c1610;
+  color: #7a6b52;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.scentBtnActive {
+  border: 1px solid #c9a84c !important;
+  background: rgba(201, 168, 76, 0.15) !important;
+  color: #c9a84c !important;
+}

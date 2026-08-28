@@ -1,0 +1,31 @@
+.row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.candle {
+  font-size: 1.15rem;
+  filter: grayscale(1) brightness(0.55);
+  opacity: 0.45;
+  transition: filter 0.4s ease, opacity 0.4s ease;
+  display: inline-block;
+}
+
+.candle.lit {
+  filter: grayscale(0) brightness(1);
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(255, 180, 60, 0.9);
+}
+
+.candle.flicker {
+  filter: grayscale(0.35) brightness(0.85);
+  opacity: 0.75;
+  animation: flickerAnim 1.1s infinite ease-in-out;
+}
+
+@keyframes flickerAnim {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.9; }
+}

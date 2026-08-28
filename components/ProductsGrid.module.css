@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap');
+
 /* ── Container & Layout ────────────────────────── */
 .container {
   max-width: 1200px;
@@ -95,7 +97,7 @@
   animation: candlePulse 2s infinite ease-in-out;
 }
 
-/* لمعة ضوء تتبع الماوس فوق الكرت (تتفعل عبر JS بتحديث الـ custom properties) */
+/* لمعة ضوء تتبع الماوس فوق الكرت */
 .sheen {
   position: absolute;
   inset: 0;
@@ -147,7 +149,13 @@
   flex-grow: 1; /* دفع الفوتر لأسفل */
 }
 
-.name { font-size: 0.98rem; font-weight: 700; color: #322A20; margin-bottom: 0.3rem; font-family: 'Amiri', serif; }
+.name { 
+  font-size: 0.98rem; 
+  font-weight: 700; 
+  color: #322A20; 
+  margin-bottom: 0.3rem; 
+  font-family: 'Amiri', serif; 
+}
 
 .desc {
   font-size: 0.78rem;
@@ -160,26 +168,38 @@
   overflow: hidden;
 }
 
-/* ── Scent Selector ──────────────────────────── */
-.scentSection { margin-top: auto; margin-bottom: 10px; }
-.scentLabel { font-size: 0.7rem; color: #A3823F; margin-bottom: 6px; }
+/* ── Scent Selector (محدث ومضبوط للجوالات) ──────────────────────────── */
+.scentSection { 
+  margin-top: auto; 
+  margin-bottom: 10px; 
+  width: 100%;
+}
+
+.scentLabel { 
+  font-size: 0.7rem; 
+  color: #A3823F; 
+  margin-bottom: 4px; 
+}
+
 .scentLabelError { color: #C0392B; }
 
 .scentGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 4px;
+  width: 100%;
 }
 
 .scentBtn {
   background: #F4EFE4;
   border: 1px solid rgba(169, 119, 47, 0.25);
   border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 0.7rem;
+  padding: 3px 6px;
+  font-size: 0.68rem;
   color: #5C4E38;
   cursor: pointer;
   transition: 0.2s;
+  white-space: nowrap;
 }
 
 .scentActive {
@@ -215,7 +235,7 @@
   color: #FFF8EC;
   border: none;
   padding: 10px 22px;
-  border-radius: 25px; /* شكل كبسولة (Pill) ناعم */
+  border-radius: 25px;
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
@@ -315,4 +335,5 @@
   .price { font-size: 0.85rem; }
   .addBtn { padding: 5px 8px; font-size: 0.7rem; }
   .cartBarContainer { width: 95%; padding: 10px; }
+  .scentBtn { font-size: 0.65rem; padding: 2px 5px; }
 }

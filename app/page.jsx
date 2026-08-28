@@ -67,7 +67,7 @@ export default function HomePage() {
           <p style={{ direction: 'ltr', unicodeBidi: 'plaintext', textAlign: 'right' }}>
             Hand-poured natural candles with cozy scents and elegant designs, transforming every ordinary moment into a cherished memory.
           </p>
-          <a className={styles.cta} href="#products" style={{ direction: 'ltr', unicodeBidi: 'plaintext' }}>Shop Collection ↗</a>
+          <a className={styles.cta} href="#products" style={{ direction: 'ltr', unicodeBidi: 'plaintext' }}>Shop Collection</a>
         </div>
       </header>
 
@@ -229,7 +229,7 @@ export default function HomePage() {
           <div className={styles.eyebrow} style={{ letterSpacing: '2px', fontSize: '0.85rem', marginBottom: '10px' }}>DON&apos;T MISS OUT</div>
           <h2 className={styles.sectionTitle} style={{ color: '#fff', direction: 'ltr', unicodeBidi: 'plaintext', fontSize: '3rem', marginBottom: '25px' }}>Ready to Light Up Your Evening?</h2>
           <a className={styles.cta} href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-            Shop Now ↗
+            Shop Now
           </a>
         </div>
       </section>

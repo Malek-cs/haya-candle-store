@@ -1,5 +1,4 @@
 import { CartProvider } from '@/context/CartContext'
-import CartLauncher from '@/components/CartLauncher'
 import EmberCursor from '@/components/EmberCursor'
 import { Plus_Jakarta_Sans, Playfair_Display } from 'next/font/google'
 import './globals.css'
@@ -56,7 +55,6 @@ export default function RootLayout({ children }) {
       }}>
         <CartProvider>
           {children}
-          <CartLauncher />
           <EmberCursor />
         </CartProvider>
       </body>

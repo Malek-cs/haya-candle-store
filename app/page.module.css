@@ -619,3 +619,128 @@
   .footerCols { margin-top: 34px; justify-content: center; gap: 30px; }
   .socialRow { justify-content: center; }
 }
+/* ── Footer Styles ────────────────────────── */
+.siteFooter {
+  background-color: #12100e;
+  color: #f5d98a;
+  padding: 4rem 2rem 2rem;
+  direction: ltr;
+  text-align: left;
+}
+
+.footerTop {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.footerBrand {
+  font-family: 'Amiri', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f5d98a;
+  letter-spacing: 1px;
+}
+
+.footerSub {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: rgba(245, 217, 138, 0.6);
+  margin-top: 4px;
+}
+
+.footerCols {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.footerCols h4 {
+  font-size: 0.9rem;
+  color: #f5d98a;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.footerCols p, .footerCols a {
+  display: block;
+  color: rgba(245, 217, 138, 0.75);
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin-bottom: 0.6rem;
+  transition: color 0.2s ease;
+}
+
+.footerCols a:hover {
+  color: #f5d98a;
+}
+
+.socialRow {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.socialIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #f5d98a;
+  transition: all 0.2s ease;
+}
+
+.socialIcon:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: #f5d98a;
+}
+
+.copyright {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  font-size: 0.78rem;
+  color: rgba(245, 217, 138, 0.45);
+  text-align: left;
+}
+
+/* ── تعديلات الشاشات الصغيرة (الجوال) ──────────────── */
+@media (max-width: 768px) {
+  .siteFooter {
+    padding: 3rem 1.25rem 1.5rem;
+    text-align: center; /* توسيط المحتوى على الجوال ليكون أجمل */
+  }
+
+  .footerTop {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .footerCols {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .socialRow {
+    justify-content: center !important;
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 0.72rem;
+  }
+}

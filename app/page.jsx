@@ -250,7 +250,6 @@ export default function HomePage() {
             <div>
               <h4>Quick Links</h4>
               <a href="#products">Products</a>
-              <a href="/checkout">Checkout</a>
               <a href="#story">Our Story</a>
             </div>
             <div>

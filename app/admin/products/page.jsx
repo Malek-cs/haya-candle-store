@@ -6,7 +6,7 @@ import "../admin.css";
 import Toast from "../Toast";
 import ConfirmDialog from "../ConfirmDialog";
 
-const ALL_SCENTS = [
+const INITIAL_SCENTS = [
   'Lavender 💜', 'Rose 🌹', 'Vanilla 🤍', 'Oud 🪵', 'Musk 🌿',
   'Cinnamon 🍂', 'Apple 🍏', 'Berry 🍒', 'Coffee ☕️', 'Orange 🍊',
 ];
@@ -21,6 +21,12 @@ export default function AdminProducts() {
   const [form, setForm]           = useState(EMPTY);
   const [toast, setToast]         = useState("");
   const [deleteId, setDeleteId]   = useState(null);
+
+  // قائمة النكهات المتاحة (قابلة للتحديث بإضافة نكهات جديدة)
+  const [availableScents, setAvailableScents] = useState(INITIAL_SCENTS);
+  const [showNewScentInput, setShowNewScentInput] = useState(false);
+  const [customScentName, setCustomScentName]     = useState("");
+  const [customScentEmoji, setCustomScentEmoji]   = useState("✨");
 
   const fetchProducts = async () => {
     try {
@@ -39,6 +45,26 @@ export default function AdminProducts() {
     });
   };
 
+  // دالة لإضافة نكهة مخصصة جديدة للقائمة وتحديدها مباشرة للمنتج
+  const handleAddCustomScent = (e) => {
+    e.preventDefault();
+    if (!customScentName.trim()) return;
+    const formattedScent = `${customScentName.trim()} ${customScentEmoji}`;
+    
+    if (!availableScents.includes(formattedScent)) {
+      setAvailableScents(prev => [...prev, formattedScent]);
+    }
+    
+    // تحديدها تلقائياً للمنتج الحالي
+    if (!form.scents.includes(formattedScent)) {
+      setForm(prev => ({ ...prev, scents: [...prev.scents, formattedScent] }));
+    }
+
+    // إعادة تعيين حقول النكهة الجديدة
+    setCustomScentName("");
+    setShowNewScentInput(false);
+  };
+
   const openAdd = () => { setEditId(null); setForm(EMPTY); setShowModal(true); };
 
   const openEdit = (p) => {
@@ -48,6 +74,16 @@ export default function AdminProducts() {
       desc: p.desc || "", category: p.category === 'فردي' ? 'Single' : p.category === 'بكج' ? 'Package' : p.category, inStock: p.inStock,
       scents: p.flavors || [], scentsCount: p.scentsCount || 1,
     });
+    // التأكد من أن النكهات الموجودة في المنتج القديم موجودة ضمن قائمة النكهات المتاحة
+    if (p.flavors && Array.isArray(p.flavors)) {
+      setAvailableScents(prev => {
+        const merged = [...prev];
+        p.flavors.forEach(f => {
+          if (!merged.includes(f)) merged.push(f);
+        });
+        return merged;
+      });
+    }
     setShowModal(true);
   };
 
@@ -195,10 +231,48 @@ export default function AdminProducts() {
                   </div>
                 )}
 
+                {/* قسم النكهات مع زر إنشاء نكهة جديدة */}
                 <div className="input-group">
-                  <label>Available Scents ({form.scents.length} selected)</label>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px' }}>
-                    {ALL_SCENTS.map(scent => {
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <label style={{ margin: 0 }}>Available Scents ({form.scents.length} selected)</label>
+                    <button 
+                      type="button" 
+                      onClick={() => setShowNewScentInput(!showNewScentInput)}
+                      style={{ background: 'none', border: 'none', color: '#d4af37', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}
+                    >
+                      {showNewScentInput ? '✕ Cancel' : '+ Create New Scent'}
+                    </button>
+                  </div>
+
+                  {/* صندوق إدخال النكهة الجديدة */}
+                  {showNewScentInput && (
+                    <div style={{ display: 'flex', gap: '8px', marginBottom: '10px', background: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(212,175,55,0.2)' }}>
+                      <input 
+                        type="text" 
+                        placeholder="Scent name (e.g. Amber)" 
+                        value={customScentName} 
+                        onChange={e => setCustomScentName(e.target.value)}
+                        style={{ flex: 2, padding: '6px 10px', borderRadius: '4px', border: '1px solid #444', background: '#111', color: '#fff', fontSize: '0.9rem' }}
+                      />
+                      <input 
+                        type="text" 
+                        placeholder="Emoji" 
+                        value={customScentEmoji} 
+                        onChange={e => setCustomScentEmoji(e.target.value)}
+                        style={{ flex: 1, padding: '6px 10px', borderRadius: '4px', border: '1px solid #444', background: '#111', color: '#fff', textAlign: 'center', fontSize: '0.9rem' }}
+                      />
+                      <button 
+                        type="button" 
+                        onClick={handleAddCustomScent}
+                        style={{ background: '#d4af37', color: '#000', border: 'none', padding: '6px 12px', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.85rem' }}
+                      >
+                        Add
+                      </button>
+                    </div>
+                  )}
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '4px' }}>
+                    {availableScents.map(scent => {
                       const active = form.scents.includes(scent);
                       return (
                         <button 

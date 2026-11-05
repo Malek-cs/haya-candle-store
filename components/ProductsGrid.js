@@ -10,6 +10,9 @@ import SparkBurst from './SparkBurst'
 import CandleProgress from './CandleProgress'
 import styles from './ProductsGrid.module.css'
 
+// صورة افتراضية مدمجة (لا تطلب أي ملف من السيرفر ولا تسبب أخطاء 403 أو 404 أبداً)
+const FALLBACK_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%231a1814'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%238c7853' font-family='sans-serif' font-size='20'%3E🕯️ Haya Store%3C/text%3E%3C/svg%3E"
+
 export default function ProductsGrid({ products }) {
   const { addToCart, totalItems, totalPrice, grandTotal, hasDiscount } = useCart()
   const [filter, setFilter] = useState('All')
@@ -26,9 +29,22 @@ export default function ProductsGrid({ products }) {
   const [selectedScents, setSelectedScents] = useState({})
   const [added, setAdded]   = useState({})
   const [errors, setErrors] = useState({})
+  const [imgErrors, setImgErrors] = useState({})
 
   const isMulti = (product) => product.scentsCount > 1
   const getScents = (productId) => selectedScents[productId] || []
+
+  const getValidImageSrc = (product) => {
+    if (imgErrors[product.id] || !product.image) return FALLBACK_IMAGE
+    const raw = product.image.trim()
+    if (raw.includes('http')) {
+      return raw.substring(raw.indexOf('http'))
+    }
+    if (raw === '/placeholder.png' || raw === 'placeholder.png') {
+      return FALLBACK_IMAGE
+    }
+    return raw.startsWith('/') ? raw : `/${raw}`
+  }
 
   const handleScentToggle = (product, scent) => {
     setErrors((prev) => ({ ...prev, [product.id]: null }))
@@ -139,6 +155,7 @@ export default function ProductsGrid({ products }) {
             const single  = !multi ? selectedScents[product.id] : null
             const err     = errors[product.id]
             const isAdded = added[product.id]
+            const imgSrc  = getValidImageSrc(product)
 
             return (
               <motion.div
@@ -154,16 +171,18 @@ export default function ProductsGrid({ products }) {
               >
                 <div className={styles.imgWrapper}>
                   <Image
-                    src={
-                      product.image && product.image.includes('http')
-                        ? product.image.substring(product.image.indexOf('http'))
-                        : (product.image || '/placeholder.png')
-                    }
+                    src={imgSrc}
                     alt={product.name || 'Candle Product'}
                     fill
                     sizes="(max-width: 600px) 100vw, 300px"
                     className={styles.img}
                     style={{ objectFit: 'cover' }}
+                    unoptimized={imgSrc.startsWith('data:')}
+                    onError={() => {
+                      if (!imgErrors[product.id]) {
+                        setImgErrors((prev) => ({ ...prev, [product.id]: true }))
+                      }
+                    }}
                   />
                   {!product.available && <div className={styles.soldOut}>Out of Stock</div>}
                 </div>

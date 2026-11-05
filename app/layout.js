@@ -1,20 +1,6 @@
 import { CartProvider } from '@/context/CartContext'
 import EmberCursor from '@/components/EmberCursor'
-import { Plus_Jakarta_Sans, Playfair_Display } from 'next/font/google'
 import './globals.css'
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-sans'
-})
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-serif'
-})
 
 export const metadata = {
   title: 'Haya Store | Handcrafted Luxury Candles in Jordan 🕯️',
@@ -44,12 +30,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" dir="ltr" className={`${plusJakarta.variable} ${playfair.variable}`}>
+    <html lang="en" dir="ltr">
       <head>
         <meta name="google-site-verification" content="rCCZ8ScKFmlVUEDKI6ZR77edjB6XQ-O3hppwTkANBaQ" />
+        {/* استيراد الخطوط مباشرة من Google Fonts لمنع أخطاء الـ Build في Turbopack */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <style dangerouslySetInnerHTML={{ __html: `
+          :root {
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+          }
+        `}} />
       </head>
       <body style={{
-        fontFamily: 'var(--font-sans), sans-serif',
+        fontFamily: 'var(--font-sans)',
         backgroundColor: '#F4EFE4',
         margin: 0
       }}>
